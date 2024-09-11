@@ -161,14 +161,14 @@ FROM CarsSelling,Staff,Dealership
 WHERE Staff.StaffNumber=CarsSelling.StaffNumber AND Dealership.DealershipNumber=Staff.DealershipNumber
 
 2.	List names of staff members and dealerships in Munster.
-3.	
+    
 SELECT StaffName,DealershipLocation
 FROM Staff,Dealership
 WHERE Staff.DealershipNumber=Dealership.DealershipNumber
 ORDER BY DealershipLocation
 
 4.	List leased car owners and staff numbers in Munster cars.
-5.	
+
 SELECT LeaseOwner,StaffNumber
 FROM CarsLeased,Dealership,Staff
 WHERE CarsLeased.DealershipNumber=Dealership.DealershipNumber AND Dealership.DealershipNumber=Staff.DealershipNumber
@@ -228,7 +228,8 @@ ON Staff
 AFTER INSERT 
 AS 
 BEGIN 
-		INSERT INTO Contact(StaffNumber,PhoneNumber,StaffEmail,date)
+		INSERT INTO
+  Contact(StaffNumber,PhoneNumber,StaffEmail,date)
 	SELECT inserted.StaffNumber AS StaffNumber,inserted.PhoneNumber AS PhoneNumber,
 		inserted.StaffEmail AS StaffEmail, GETDATE() as date
 		FROM INSERTED 
