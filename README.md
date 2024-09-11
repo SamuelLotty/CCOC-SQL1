@@ -46,6 +46,7 @@ CONSTRAINT PRIMARY KEY (CarReg,StaffNumber)
 Values
 
 INSERT INTO Dealership
+
 VALUES (1,'Airport,Road,Cork',102,4,430),
 	(2,'Glen Road,Kerry',120,3,225),
 	(3,'Harbour view,Tralee',76,2,57),
@@ -60,7 +61,9 @@ VALUES (1,'Airport,Road,Cork',102,4,430),
 	(12,'Sneem, Kerry',83,7,24)
 
 INSERT INTO Staff
-VALUES ('12A','John Murphy',12/04/2008,104532,'Jmurph@gmail.com','085231456',1),
+
+VALUES 
+('12A','John Murphy',12/04/2008,104532,'Jmurph@gmail.com','085231456',1),
 	   ('21A','Jerry O Connel',08/02/2022,50921,'Jerry@gmail.com','085234232',1),
 	   ('42B','Alica Brown',10/03/2012,1902,'Brown@gmail.com','085231233',1),
 	   ('46C','Mary Grand',11/11/2013,50291,'Grand@gmail.com','085211231',1),
@@ -111,7 +114,9 @@ VALUES ('12A','John Murphy',12/04/2008,104532,'Jmurph@gmail.com','085231456',1),
 		('77D','Joe Foster',12/22/2011,982,'JFoster@gmail.com','0859091446',12)
 
 INSERT INTO CarsSelling
-VALUES ('191-C-9012','12A','2','€40000','12/05/2022'),
+
+VALUES 
+('191-C-9012','12A','2','€40000','12/05/2022'),
 	   ('181-C-48292','1H','4','€22549','09/22/2021'),
 	   ('131-C-762314','21A','5','€5450','07/21/2019'),
        ('12-C-12','60A','8','€2500','05/29/2015'),
@@ -128,7 +133,9 @@ VALUES ('191-C-9012','12A','2','€40000','12/05/2022'),
 	   ('192-C-1823','54A','4','€50250','05/13/2019')
 
 INSERT INTO CarsLeased
+
 VALUES
+
 ('212-C-205','Petrol','4','25675','03/10/2023','John McCabe',1),
 ('202-D-7884','Diesel','3','50298','05/15/2023','Mary Addams',5),
 ('211-C-6095','Diesel','4','90675','07/28/2024','Mary Joesph',12),
@@ -146,6 +153,7 @@ VALUES
 ('151-DL-266472','Diesel','4','11265','11/24/2022','Osbert Currey',3)
 
 Queries 
+
 1.	List what car registrations are for sale in each dealership in Munster.
 
 SELECT CarReg,DealershipLocation
@@ -153,17 +161,19 @@ FROM CarsSelling,Staff,Dealership
 WHERE Staff.StaffNumber=CarsSelling.StaffNumber AND Dealership.DealershipNumber=Staff.DealershipNumber
 
 2.	List names of staff members and dealerships in Munster.
+3.	
 SELECT StaffName,DealershipLocation
 FROM Staff,Dealership
 WHERE Staff.DealershipNumber=Dealership.DealershipNumber
 ORDER BY DealershipLocation
 
-3.	List leased car owners and staff numbers in Munster cars.
+4.	List leased car owners and staff numbers in Munster cars.
+5.	
 SELECT LeaseOwner,StaffNumber
 FROM CarsLeased,Dealership,Staff
 WHERE CarsLeased.DealershipNumber=Dealership.DealershipNumber AND Dealership.DealershipNumber=Staff.DealershipNumber
 
-4.	Identify the total number of cars per dealerships saved as a view.
+6.	Identify the total number of cars per dealerships saved as a view.
 
 /****** Script for SelectTopNRows command from SSMS  ******/
 SELECT TOP (1000) [DealershipLocation]
@@ -179,12 +189,14 @@ SELECT TOP (1000) [DealershipLocation]
  FROM [SLottyMunsterCarSales].[dbo].[Sales per dealership with staff amount]
  
 6.	List all of the leased cars and when the cars service date is due saved as a view.
+   
 /****** Script for SelectTopNRows command from SSMS  ******/
 SELECT TOP (1000) [CarReg]
        ,[ServiceDate]
 FROM [SLottyMunsterCarSales].[dbo].[Leased cars and service date]
 
-7.	Show staff numbers of sales and dealership numbers in one enquiry saved as a view.
+8.	Show staff numbers of sales and dealership numbers in one enquiry saved as a view.
+   
 /****** Script for SelectTopNRows command from SSMS  ******/
 SELECT TOP (1000) [StaffNumber]
       ,[Sales]
@@ -192,14 +204,15 @@ SELECT TOP (1000) [StaffNumber]
 FROM [SLottyMunsterCarSales].[dbo].[Staff sales]
 
 
-8.	 List car registration, price and previous owners for cars selling as a stored procedure.
+10.	 List car registration, price and previous owners for cars selling as a stored procedure.
+    
 CREATE PROCEDURE ListCarInfo @CarReg varchar(20)
 AS
 SELECT Price,PreviousOwners
 FROM CarsSelling
 WHERE CarReg = @CarReg
 
-9.	Show staff names from dealership numbers saved as a function.
+12.	Show staff names from dealership numbers saved as a function.
 
 CREATE FUNCTION DealershipInfo(@DealershipNumber int)
 RETURNS table 
@@ -209,6 +222,7 @@ RETURN
   
 
 10.	List staff number and phone numbers of those staff members as a database trigger.
+    
 CREATE TRIGGER StaffTrigger
 ON Staff
 AFTER INSERT 
